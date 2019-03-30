@@ -8,31 +8,33 @@ namespace _727172
 {
     class Program
     {
-        class Program
+        static void Main(string[] args)
         {
-            static void Main(string[] args)
+            Console.WriteLine(" Downloading a file");
+            Download();
+            Console.ReadLine();
+        }
+
+        static async void Download()
+        {
+            await Network.Download();
+            Console.WriteLine("Download Complete");
+        }
+
+    }
+
+    class Network
+    {
+        static ArrayList WbPageContents = new ArrayList();
+        public static async Task Download()
+        {
+
+            HttpClient client = new HttpClient();
+            var data = await client.GetStringAsync("http://ibm.com");
+            Console.WriteLine(data);
+            foreach (var i in data)
             {
-                Console.WriteLine("download");
-                Download();
-                Console.ReadLine();
-
-
-
-            }
-            static async void Download()
-            {
-                await Network.download();
-                Console.WriteLine("download complete");
-            }
-
-
-            class Network
-            {
-                static public Task download()
-                {
-                    return Task.Run(
-                    () => ThreadStaticAttribute.Sleep(60000));
-                }
+                WbPageContents.Add(i);
             }
         }
     }
